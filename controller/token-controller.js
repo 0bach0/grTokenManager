@@ -2,7 +2,7 @@ var Token = require('../models/token');
 
 exports.newtoken= (req,res,next)=>{
     console.log('Received new token ',req.body);
-    var checked = (!req.body.access_token || !req.body.id || !req.body.expires) ? false : true;
+    var checked = (!req.body.access_token || !req.body.id) ? false : true;
     if(checked) {
         var d = new Date();
         var seconds = Math.round(d.getTime() / 1000);
@@ -94,10 +94,10 @@ exports.gettokens = (req,res,next)=>{
             var tmp = {};
             tmp.id = results[x].id;
             tmp.name = results[x].name;
-            tmp.access_token = results[x].access_token;
             tmp.status = results[x].status;
-            tmp.use_count = results[x].use_count;
             tmp.expired = results[x].expired;
+            tmp.use_count = results[x].use_count;
+            tmp.access_token = results[x].access_token;
             
             data.push(tmp);
         }
