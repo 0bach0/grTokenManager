@@ -9,7 +9,7 @@ exports.newtoken= (req,res,next)=>{
         var limit = seconds + parseInt(req.body.expires);        
         var id = req.body.id;
         var expires = req.body.expires;
-        var access_token = access_token;
+        var access_token = req.body.access_token;
         
         Token.findOne({'id':id}, function (err,results){
             if(err){
@@ -17,7 +17,7 @@ exports.newtoken= (req,res,next)=>{
                 return;
             }
             if(results != null){
-                Token.update({'id':id},{'id':id,'name':results.name,'access_token':access_token,'status':true,'use_count':0,'expired':limit}).then((succ)=>{console.log(succ);},(succ)=>{console.log(succ);});
+                Token.update({'id':id},{'id':id,'name':results.name,'access_token':req.body.access_token,'status':true,'use_count':0,'expired':limit}).then((succ)=>{console.log(succ);},(succ)=>{console.log(succ);});
                 res.send({status:'done',message:{info:'Updated '+id}});
             }
             else{
