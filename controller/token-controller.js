@@ -17,7 +17,7 @@ exports.newtoken= (req,res,next)=>{
                 return;
             }
             if(results != null){
-                Token.update({'id':id},{'id':id,'name':results.name,'access_token':access_token,'status':true,'use_count':0,'expired':limit});
+                Token.update({'id':id},{'id':id,'name':results.name,'access_token':access_token,'status':true,'use_count':0,'expired':limit}).then((succ)=>{console.log(succ);},(succ)=>{console.log(succ);});
                 res.send({status:'done',message:{info:'Updated '+id}});
             }
             else{
